@@ -53,9 +53,9 @@ namespace GettingStarted_Ink
         // End "Step 5: Support handwriting recognition"
 
         // Begin "Step 6: Recognize shapes"
-        //InkAnalyzer analyzerShape = new InkAnalyzer();
-        //IReadOnlyList<InkStroke> strokesShape = null;
-        //InkAnalysisResult resultShape = null;
+        InkAnalyzer analyzerShape = new InkAnalyzer();
+        IReadOnlyList<InkStroke> strokesShape = null;
+        InkAnalysisResult resultShape = null;
         // End "Step 6: Recognize shapes"
 
         public MainPage()
@@ -111,96 +111,96 @@ namespace GettingStarted_Ink
         // End "Step 5: Support handwriting recognition"
 
         // Begin "Step 6: Recognize shapes"
-        //private async void recognizeShape_ClickAsync(object sender, RoutedEventArgs e)
-        //{
-        //    strokesShape = inkCanvas.InkPresenter.StrokeContainer.GetStrokes();
+        private async void recognizeShape_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            strokesShape = inkCanvas.InkPresenter.StrokeContainer.GetStrokes();
 
-        //    if (strokesShape.Count > 0)
-        //    {
-        //        analyzerShape.AddDataForStrokes(strokesShape);
+            if (strokesShape.Count > 0)
+            {
+                analyzerShape.AddDataForStrokes(strokesShape);
 
-        //        resultShape = await analyzerShape.AnalyzeAsync();
+                resultShape = await analyzerShape.AnalyzeAsync();
 
-        //        if (resultShape.Status == InkAnalysisStatus.Updated)
-        //        {
-        //            var drawings = analyzerShape.AnalysisRoot.FindNodes(InkAnalysisNodeKind.InkDrawing);
+                if (resultShape.Status == InkAnalysisStatus.Updated)
+                {
+                    var drawings = analyzerShape.AnalysisRoot.FindNodes(InkAnalysisNodeKind.InkDrawing);
 
-        //            foreach (var drawing in drawings)
-        //            {
-        //                var shape = (InkAnalysisInkDrawing)drawing;
-        //                if (shape.DrawingKind == InkAnalysisDrawingKind.Drawing)
-        //                {
-        //                    // Catch and process unsupported shapes (lines and so on) here.
-        //                }
-        //                else
-        //                {
-        //                    // Process recognized shapes here.
-        //                    if (shape.DrawingKind == InkAnalysisDrawingKind.Circle || shape.DrawingKind == InkAnalysisDrawingKind.Ellipse)
-        //                    {
-        //                        DrawEllipse(shape);
-        //                    }
-        //                    else
-        //                    {
-        //                        DrawPolygon(shape);
-        //                    }
-        //                    foreach (var strokeId in shape.GetStrokeIds())
-        //                    {
-        //                        var stroke = inkCanvas.InkPresenter.StrokeContainer.GetStrokeById(strokeId);
-        //                        stroke.Selected = true;
-        //                    }
-        //                }
-        //                analyzerShape.RemoveDataForStrokes(shape.GetStrokeIds());
-        //            }
-        //            inkCanvas.InkPresenter.StrokeContainer.DeleteSelected();
-        //        }
-        //    }
-        //}
+                    foreach (var drawing in drawings)
+                    {
+                        var shape = (InkAnalysisInkDrawing)drawing;
+                        if (shape.DrawingKind == InkAnalysisDrawingKind.Drawing)
+                        {
+                            // Catch and process unsupported shapes (lines and so on) here.
+                        }
+                        else
+                        {
+                            // Process recognized shapes here.
+                            if (shape.DrawingKind == InkAnalysisDrawingKind.Circle || shape.DrawingKind == InkAnalysisDrawingKind.Ellipse)
+                            {
+                                DrawEllipse(shape);
+                            }
+                            else
+                            {
+                                DrawPolygon(shape);
+                            }
+                            foreach (var strokeId in shape.GetStrokeIds())
+                            {
+                                var stroke = inkCanvas.InkPresenter.StrokeContainer.GetStrokeById(strokeId);
+                                stroke.Selected = true;
+                            }
+                        }
+                        analyzerShape.RemoveDataForStrokes(shape.GetStrokeIds());
+                    }
+                    inkCanvas.InkPresenter.StrokeContainer.DeleteSelected();
+                }
+            }
+        }
 
-        //private void DrawEllipse(InkAnalysisInkDrawing shape)
-        //{
-        //    var points = shape.Points;
-        //    Ellipse ellipse = new Ellipse();
-        //    ellipse.Width = Math.Sqrt((points[0].X - points[2].X) * (points[0].X - points[2].X) +
-        //         (points[0].Y - points[2].Y) * (points[0].Y - points[2].Y));
-        //    ellipse.Height = Math.Sqrt((points[1].X - points[3].X) * (points[1].X - points[3].X) +
-        //         (points[1].Y - points[3].Y) * (points[1].Y - points[3].Y));
+        private void DrawEllipse(InkAnalysisInkDrawing shape)
+        {
+            var points = shape.Points;
+            Ellipse ellipse = new Ellipse();
+            ellipse.Width = Math.Sqrt((points[0].X - points[2].X) * (points[0].X - points[2].X) +
+                 (points[0].Y - points[2].Y) * (points[0].Y - points[2].Y));
+            ellipse.Height = Math.Sqrt((points[1].X - points[3].X) * (points[1].X - points[3].X) +
+                 (points[1].Y - points[3].Y) * (points[1].Y - points[3].Y));
 
-        //    var rotAngle = Math.Atan2(points[2].Y - points[0].Y, points[2].X - points[0].X);
-        //    RotateTransform rotateTransform = new RotateTransform();
-        //    rotateTransform.Angle = rotAngle * 180 / Math.PI;
-        //    rotateTransform.CenterX = ellipse.Width / 2.0;
-        //    rotateTransform.CenterY = ellipse.Height / 2.0;
+            var rotAngle = Math.Atan2(points[2].Y - points[0].Y, points[2].X - points[0].X);
+            RotateTransform rotateTransform = new RotateTransform();
+            rotateTransform.Angle = rotAngle * 180 / Math.PI;
+            rotateTransform.CenterX = ellipse.Width / 2.0;
+            rotateTransform.CenterY = ellipse.Height / 2.0;
 
-        //    TranslateTransform translateTransform = new TranslateTransform();
-        //    translateTransform.X = shape.Center.X - ellipse.Width / 2.0;
-        //    translateTransform.Y = shape.Center.Y - ellipse.Height / 2.0;
+            TranslateTransform translateTransform = new TranslateTransform();
+            translateTransform.X = shape.Center.X - ellipse.Width / 2.0;
+            translateTransform.Y = shape.Center.Y - ellipse.Height / 2.0;
 
-        //    TransformGroup transformGroup = new TransformGroup();
-        //    transformGroup.Children.Add(rotateTransform);
-        //    transformGroup.Children.Add(translateTransform);
-        //    ellipse.RenderTransform = transformGroup;
+            TransformGroup transformGroup = new TransformGroup();
+            transformGroup.Children.Add(rotateTransform);
+            transformGroup.Children.Add(translateTransform);
+            ellipse.RenderTransform = transformGroup;
 
-        //    var brush = new SolidColorBrush(Windows.UI.ColorHelper.FromArgb(255, 0, 0, 255));
-        //    ellipse.Stroke = brush;
-        //    ellipse.StrokeThickness = 2;
-        //    canvas.Children.Add(ellipse);
-        //}
+            var brush = new SolidColorBrush(Windows.UI.ColorHelper.FromArgb(255, 0, 0, 255));
+            ellipse.Stroke = brush;
+            ellipse.StrokeThickness = 2;
+            canvas.Children.Add(ellipse);
+        }
 
-        //private void DrawPolygon(InkAnalysisInkDrawing shape)
-        //{
-        //    var points = shape.Points;
-        //    Polygon polygon = new Polygon();
+        private void DrawPolygon(InkAnalysisInkDrawing shape)
+        {
+            var points = shape.Points;
+            Polygon polygon = new Polygon();
 
-        //    foreach (var point in points)
-        //    {
-        //        polygon.Points.Add(point);
-        //    }
+            foreach (var point in points)
+            {
+                polygon.Points.Add(point);
+            }
 
-        //    var brush = new SolidColorBrush(Windows.UI.ColorHelper.FromArgb(255, 0, 0, 255));
-        //    polygon.Stroke = brush;
-        //    polygon.StrokeThickness = 2;
-        //    canvas.Children.Add(polygon);
-        //}
+            var brush = new SolidColorBrush(Windows.UI.ColorHelper.FromArgb(255, 0, 0, 255));
+            polygon.Stroke = brush;
+            polygon.StrokeThickness = 2;
+            canvas.Children.Add(polygon);
+        }
         // End "Step 6: Recognize shapes"
 
         // Begin "Step 7: Save and load ink"

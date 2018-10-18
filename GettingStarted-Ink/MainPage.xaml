@@ -65,7 +65,7 @@ THE SOFTWARE.
 
             <!-- The canvas where we draw the replacement shapes. -->
             <!-- Begin Step 6: Recognize shapes -->
-            <!--<Canvas x:Name="canvas" />-->
+            <Canvas x:Name="canvas" />
             <!-- End Step 6: Recognize shapes -->
             
             <!-- Begin "Step 2: Use InkCanvas to support basic inking" -->
@@ -96,9 +96,9 @@ THE SOFTWARE.
                        Margin="50,0,0,0" />
             <!-- End "Step 5: Support handwriting recognition" -->
             <!-- Begin "Step 6: Recognize shapes" -->
-            <!--<Button Grid.Row="1" x:Name="recognizeShape" Click="recognizeShape_ClickAsync"
+            <Button Grid.Row="1" x:Name="recognizeShape" Click="recognizeShape_ClickAsync"
                     Content="Recognize shape" 
-                    Margin="10,10,10,10" />-->
+                    Margin="10,10,10,10" />
             <!-- End "Step 6: Recognize shapes" -->
         </Grid>
         
