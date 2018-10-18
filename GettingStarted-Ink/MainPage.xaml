@@ -41,11 +41,11 @@ THE SOFTWARE.
         
         <StackPanel x:Name="ToolPanel" Orientation="Horizontal" Grid.Row="1">
            <!-- Begin "Step 4: Add an ink toolbar" -->
-           <!--<InkToolbar x:Name="inkToolbar" 
+            <InkToolbar x:Name="inkToolbar" 
                        VerticalAlignment="Top" 
                        Margin="10,0,10,0"
                        TargetInkCanvas="{x:Bind inkCanvas}">
-            </InkToolbar>-->
+            </InkToolbar>
             <!-- End "Step 4: Add an ink toolbar" -->
             <!-- Begin "Step 7: Save and load ink" -->
             <!--<Button x:Name="buttonSave" 
