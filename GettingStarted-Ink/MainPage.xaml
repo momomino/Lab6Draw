@@ -48,7 +48,7 @@ THE SOFTWARE.
             </InkToolbar>
             <!-- End "Step 4: Add an ink toolbar" -->
             <!-- Begin "Step 7: Save and load ink" -->
-            <!--<Button x:Name="buttonSave" 
+            <Button x:Name="buttonSave" 
                     Content="Save" 
                     Click="buttonSave_ClickAsync"
                     Width="100"
@@ -57,7 +57,7 @@ THE SOFTWARE.
                     Content="Load"  
                     Click="buttonLoad_ClickAsync"
                     Width="100"
-                    Margin="5,0,0,0"/>-->
+                    Margin="5,0,0,0"/>
             <!-- End "Step 7: Save and load ink" -->
         </StackPanel>
 
