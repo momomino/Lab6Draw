@@ -46,10 +46,10 @@ namespace GettingStarted_Ink
     public sealed partial class MainPage : Page
     {
         // Begin "Step 5: Support handwriting recognition"
-        //InkAnalyzer analyzerText = new InkAnalyzer();
-        //IReadOnlyList<InkStroke> strokesText = null;
-        //InkAnalysisResult resultText = null;
-        //IReadOnlyList<IInkAnalysisNode> words = null;
+        InkAnalyzer analyzerText = new InkAnalyzer();
+        IReadOnlyList<InkStroke> strokesText = null;
+        InkAnalysisResult resultText = null;
+        IReadOnlyList<IInkAnalysisNode> words = null;
         // End "Step 5: Support handwriting recognition"
 
         // Begin "Step 6: Recognize shapes"
@@ -72,42 +72,42 @@ namespace GettingStarted_Ink
         }
 
         // Begin "Step 5: Support handwriting recognition"
-        //private async void recognizeText_ClickAsync(object sender, RoutedEventArgs e)
-        //{
-        //    strokesText = inkCanvas.InkPresenter.StrokeContainer.GetStrokes();
-        //    // Ensure an ink stroke is present.
-        //    if (strokesText.Count > 0)
-        //    {
-        //        analyzerText.AddDataForStrokes(strokesText);
+        private async void recognizeText_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            strokesText = inkCanvas.InkPresenter.StrokeContainer.GetStrokes();
+           // Ensure an ink stroke is present.
+            if (strokesText.Count > 0)
+            {
+                analyzerText.AddDataForStrokes(strokesText);
 
-        //        // Force analyzer to process strokes as handwriting.
-        //        foreach (var stroke in strokesText)
-        //        {
-        //            analyzerText.SetStrokeDataKind(stroke.Id, InkAnalysisStrokeKind.Writing);
-        //        }
+                // Force analyzer to process strokes as handwriting.
+                foreach (var stroke in strokesText)
+                {
+                    analyzerText.SetStrokeDataKind(stroke.Id, InkAnalysisStrokeKind.Writing);
+                }
 
-        //        // Clear recognition results string.
-        //        recognitionResult.Text = "";
+                // Clear recognition results string.
+                recognitionResult.Text = "";
 
-        //        resultText = await analyzerText.AnalyzeAsync();
+                resultText = await analyzerText.AnalyzeAsync();
 
-        //        if (resultText.Status == InkAnalysisStatus.Updated)
-        //        {
-        //            var text = analyzerText.AnalysisRoot.RecognizedText;
-        //            words = analyzerText.AnalysisRoot.FindNodes(InkAnalysisNodeKind.InkWord);
-        //            foreach (var word in words)
-        //            {
-        //                InkAnalysisInkWord concreteWord = (InkAnalysisInkWord)word;
-        //                foreach (string s in concreteWord.TextAlternates)
-        //                {
-        //                    recognitionResult.Text += s + " ";
-        //                }
-        //                recognitionResult.Text += " / ";
-        //            }
-        //        }
-        //        analyzerText.ClearDataForAllStrokes();
-        //    }
-        //}
+                if (resultText.Status == InkAnalysisStatus.Updated)
+               {
+                    var text = analyzerText.AnalysisRoot.RecognizedText;
+                    words = analyzerText.AnalysisRoot.FindNodes(InkAnalysisNodeKind.InkWord);
+                    foreach (var word in words)
+                    {
+                        InkAnalysisInkWord concreteWord = (InkAnalysisInkWord)word;
+                        foreach (string s in concreteWord.TextAlternates)
+                        {
+                            recognitionResult.Text += s + " ";
+                        }
+                        recognitionResult.Text += " / ";
+                    }
+                }
+                analyzerText.ClearDataForAllStrokes();
+            }
+        }
         // End "Step 5: Support handwriting recognition"
 
         // Begin "Step 6: Recognize shapes"
